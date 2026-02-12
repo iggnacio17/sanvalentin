@@ -1,66 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuestro Universo 💖</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestro Universo 💖</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="hearts-container"></div>
 
-<div id="hearts-container"></div>
+    <header>
+      <h1>💖 Nuestro Universo 💖</h1>
+      <p id="daysCounter"></p>
 
-<header>
-    <h1>💖 Nuestro Universo 💖</h1>
-    <p id="daysCounter"></p>
-
-    <div class="top-buttons">
-        <button onclick="openAddMemory()">➕ Recuerdo</button>
+      <div class="top-buttons">
+        <button onclick="openAdd()">➕ Añadir</button>
+        <button onclick="setFilter('all')">✨ Todo</button>
+        <button onclick="setFilter('photo')">📷 Fotos</button>
+        <button onclick="setFilter('pet')">🐾 Mascotas</button>
+        <button onclick="setFilter('note')">📝 Notas</button>
         <button onclick="toggleDark()">🌙 Modo</button>
         <button onclick="exportData()">💾 Exportar</button>
         <button onclick="importData()">📂 Importar</button>
-        <button onclick="openHot()">🔥 Hot</button>
+      </div>
+    </header>
+
+    <main>
+      <div id="gallery" class="masonry"></div>
+    </main>
+
+    <!-- Modal Imagen -->
+    <div id="imageModal" class="modal">
+      <span onclick="closeModal()" class="close">&times;</span>
+      <img id="modalImg" />
     </div>
-</header>
 
-<section class="secret-section">
-    <h2>💌 Carta Secreta</h2>
-    <textarea id="secretLetter" placeholder="Escribe tu carta aquí..."></textarea>
-    <button onclick="saveSecret()">Guardar Carta</button>
-    <div id="secretDisplay"></div>
-</section>
-
-<section>
-    <h2>📅 Recuerdos</h2>
-    <div id="timeline"></div>
-</section>
-
-<section>
-    <h2>🐾 Hijos (Mascotas)</h2>
-    <div id="pets"></div>
-    <button onclick="addPet()">Añadir Mascota</button>
-</section>
-
-<!-- Modal Imagen -->
-<div id="imageModal" class="modal">
-    <span onclick="closeModal()" class="close">&times;</span>
-    <img id="modalImg">
-</div>
-
-<!-- Modal Añadir -->
-<div id="addModal" class="modal">
-    <div class="modal-content">
+    <!-- Modal Añadir -->
+    <div id="addModal" class="modal">
+      <div class="modal-content">
         <h3>Nuevo Recuerdo</h3>
-        <input type="file" id="memoryFile">
-        <input type="date" id="memoryDate">
-        <textarea id="memoryDesc" placeholder="Descripción"></textarea>
-        <button onclick="saveMemory()">Guardar</button>
+
+        <select id="typeSelect">
+          <option value="photo">Foto</option>
+          <option value="pet">Mascota</option>
+          <option value="note">Nota</option>
+        </select>
+
+        <input type="file" id="memoryFile" />
+        <textarea id="memoryText" placeholder="Escribe tu nota..."></textarea>
+        <input type="date" id="memoryDate" />
+
+        <button onclick="saveItem()">Guardar</button>
         <button onclick="closeAdd()">Cancelar</button>
+      </div>
     </div>
-</div>
 
-<input type="file" id="importFile" style="display:none">
+    <input type="file" id="importFile" style="display: none" />
 
-<script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
