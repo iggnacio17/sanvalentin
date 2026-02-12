@@ -1,74 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nuestro Universo 💖</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="heartsContainer"></div>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nuestro Universo 💖</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
-    <header>
-      <h1>✨ Nuestro Universo ✨</h1>
-      <p id="daysCounter"></p>
-    </header>
+<div id="hearts-container"></div>
 
-    <div class="topButtons">
-      <button onclick="openAddModal()">Añadir Recuerdo</button>
-      <button onclick="exportData()">Exportar JSON</button>
-      <input type="file" id="importInput" hidden />
-      <button onclick="document.getElementById('importInput').click()">
-        Importar JSON
-      </button>
-      <button onclick="toggleDarkMode()">🌙</button>
-      <button onclick="openHot()">🔥 Hot</button>
+<header>
+    <h1>💖 Nuestro Universo 💖</h1>
+    <p id="daysCounter"></p>
+
+    <div class="top-buttons">
+        <button onclick="openAddMemory()">➕ Recuerdo</button>
+        <button onclick="toggleDark()">🌙 Modo</button>
+        <button onclick="exportData()">💾 Exportar</button>
+        <button onclick="importData()">📂 Importar</button>
+        <button onclick="openHot()">🔥 Hot</button>
     </div>
+</header>
 
-    <section class="letterSection">
-      <h2>💌 Carta Secreta</h2>
-      <div id="letterContent"></div>
-    </section>
+<section class="secret-section">
+    <h2>💌 Carta Secreta</h2>
+    <textarea id="secretLetter" placeholder="Escribe tu carta aquí..."></textarea>
+    <button onclick="saveSecret()">Guardar Carta</button>
+    <div id="secretDisplay"></div>
+</section>
 
-    <section>
-      <h2>📸 Recuerdos</h2>
-      <div id="timeline"></div>
-    </section>
+<section>
+    <h2>📅 Recuerdos</h2>
+    <div id="timeline"></div>
+</section>
 
-    <section>
-      <h2>🐾 Hijos</h2>
-      <div id="petsSection"></div>
-    </section>
+<section>
+    <h2>🐾 Hijos (Mascotas)</h2>
+    <div id="pets"></div>
+    <button onclick="addPet()">Añadir Mascota</button>
+</section>
 
-    <!-- Modal -->
-    <div id="modal" class="modal">
-      <div class="modalContent">
+<!-- Modal Imagen -->
+<div id="imageModal" class="modal">
+    <span onclick="closeModal()" class="close">&times;</span>
+    <img id="modalImg">
+</div>
+
+<!-- Modal Añadir -->
+<div id="addModal" class="modal">
+    <div class="modal-content">
         <h3>Nuevo Recuerdo</h3>
-        <select id="memoryType">
-          <option value="normal">Recuerdo</option>
-          <option value="pet">Hijo 🐾</option>
-        </select>
-        <input type="file" id="memoryFile" />
-        <input type="date" id="memoryDate" />
-        <textarea
-          id="memoryDesc"
-          placeholder="Escribe algo bonito..."
-        ></textarea>
+        <input type="file" id="memoryFile">
+        <input type="date" id="memoryDate">
+        <textarea id="memoryDesc" placeholder="Descripción"></textarea>
         <button onclick="saveMemory()">Guardar</button>
-        <button onclick="closeModal()">Cancelar</button>
-      </div>
+        <button onclick="closeAdd()">Cancelar</button>
     </div>
+</div>
 
-    <!-- Hot -->
-    <div id="hotSection" class="hotSection hidden">
-      <div class="hotContent">
-        <h2>🔥 Zona Hot</h2>
-        <input type="password" id="hotPassword" placeholder="Contraseña" />
-        <button onclick="checkHot()">Entrar</button>
-        <div id="hotContentArea"></div>
-      </div>
-    </div>
+<input type="file" id="importFile" style="display:none">
 
-    <script src="script.js"></script>
-  </body>
+<script src="script.js"></script>
+</body>
 </html>
