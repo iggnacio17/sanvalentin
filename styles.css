@@ -1,19 +1,19 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background: #FDC3A1;
+  font-family: sans-serif;
+  background: #fdc3a1;
 }
 
-/* 💖 HEADER APP */
+/* Header */
 .appHeader {
   text-align: center;
   padding: 10px;
   font-size: 20px;
-  color: #F57799;
+  color: #f57799;
   font-weight: bold;
 }
 
-/* 📱 BARRA SUPERIOR COMPACTA */
+/* Barra compacta */
 .topActions {
   display: flex;
   justify-content: center;
@@ -29,7 +29,7 @@ body {
   font-size: 18px;
 }
 
-/* 🖼️ PINTEREST BONITO */
+/* Pinterest */
 .masonry {
   column-count: 2;
   column-gap: 10px;
@@ -42,7 +42,7 @@ body {
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 .card img {
@@ -57,35 +57,54 @@ body {
   font-size: 12px;
 }
 
-/* ➕ BOTÓN FLOTANTE */
+/* FAB */
 .fab {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #F57799;
+  background: #f57799;
   color: white;
   border: none;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   font-size: 32px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
-/* 💘 CORAZONES ATRÁS */
-#hearts {
+/* FAB menu */
+.fabMenu {
   position: fixed;
-  inset: 0;
-  z-index: -1;
+  bottom: 90px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
   pointer-events: none;
+  transition: 0.3s;
 }
 
-/* 🪟 MODAL */
+.fabMenu.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fabItem {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: #f57799;
+  color: white;
+  font-size: 22px;
+}
+
+/* Modal */
 .modal {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   z-index: 999;
   justify-content: center;
   align-items: center;
@@ -108,4 +127,12 @@ body {
   right: 30px;
   color: white;
   font-size: 40px;
+}
+
+/* Corazones */
+#hearts {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
 }
