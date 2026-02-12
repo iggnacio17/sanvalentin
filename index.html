@@ -9,16 +9,15 @@
   <body>
     <div id="hearts"></div>
 
-    <header class="appHeader">💖 Nuestro Universo</header>
+    <header class="appHeader">💖 Nuestro Universo 💖</header>
 
-    <!-- 📱 BARRA SUPERIOR COMPACTA -->
+    <!-- Barra compacta -->
     <div class="topActions">
       <button onclick="setFilter('all')">✨</button>
       <button onclick="setFilter('photo')">📷</button>
       <button onclick="setFilter('pet')">🐾</button>
       <button onclick="setFilter('note')">📝</button>
       <button onclick="setFilter('fav')">❤️</button>
-      <button onclick="toggleDark()">🌙</button>
       <button onclick="exportData()">💾</button>
       <button onclick="importData()">📂</button>
     </div>
@@ -27,10 +26,30 @@
       <div id="gallery" class="masonry"></div>
     </main>
 
-    <!-- ➕ BOTÓN FLOTANTE -->
-    <button class="fab" onclick="openAdd()">＋</button>
+    <!-- FAB -->
+    <button class="fab" onclick="toggleFab()">＋</button>
 
-    <!-- MODAL AÑADIR -->
+    <div id="fabMenu" class="fabMenu">
+      <button class="fabItem" onclick="takePhoto()">📷</button>
+      <button class="fabItem" onclick="openAdd()">🖼️</button>
+      <button class="fabItem" onclick="openNote()">📝</button>
+    </div>
+
+    <input
+      type="file"
+      id="cameraInput"
+      accept="image/*"
+      capture="environment"
+      style="display: none"
+    />
+
+    <!-- Modal imagen -->
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">×</span>
+      <img id="modalImg" />
+    </div>
+
+    <!-- Modal añadir -->
     <div id="addModal" class="modal">
       <div class="modal-content">
         <h3>Nuevo Recuerdo</h3>
@@ -42,18 +61,12 @@
         </select>
 
         <input type="file" id="memoryFile" />
-        <textarea id="memoryText" placeholder="Escribe tu nota..."></textarea>
+        <textarea id="memoryText" placeholder="Nota..."></textarea>
         <input type="date" id="memoryDate" />
 
         <button onclick="saveItem()">Guardar</button>
         <button onclick="closeAdd()">Cancelar</button>
       </div>
-    </div>
-
-    <!-- MODAL IMAGEN -->
-    <div id="imageModal" class="modal">
-      <span class="close" onclick="closeModal()">×</span>
-      <img id="modalImg" />
     </div>
 
     <input type="file" id="importFile" style="display: none" />
