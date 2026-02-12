@@ -1,7 +1,7 @@
 body {
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
-  background: #fdc3a1;
+  font-family: 'Segoe UI', sans-serif;
+  background: #FDC3A1;
 }
 
 /* 💖 HEADER APP */
@@ -9,7 +9,7 @@ body {
   text-align: center;
   padding: 10px;
   font-size: 20px;
-  color: #f57799;
+  color: #F57799;
   font-weight: bold;
 }
 
@@ -42,7 +42,7 @@ body {
   background: white;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
 .card img {
@@ -62,14 +62,14 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background: #f57799;
+  background: #F57799;
   color: white;
   border: none;
   border-radius: 50%;
   width: 60px;
   height: 60px;
   font-size: 32px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
 
 /* 💘 CORAZONES ATRÁS */
@@ -85,7 +85,7 @@ body {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0,0,0,0.8);
   z-index: 999;
   justify-content: center;
   align-items: center;
