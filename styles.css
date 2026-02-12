@@ -1,0 +1,130 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #fdc3a1;
+  color: #5a2a2a;
+  overflow-x: hidden;
+  transition: 0.4s;
+}
+
+.dark {
+  background: #1a1a1f;
+  color: #f2f2f2;
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #f57799;
+}
+
+.topButtons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+button {
+  background: #f57799;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #fb9b8f;
+}
+
+section {
+  padding: 20px;
+}
+
+#timeline,
+#petsSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+}
+
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card img,
+.card video {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hotSection {
+  position: fixed;
+  inset: 0;
+  background: #000000e6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hotContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Corazones */
+
+#heartsContainer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart {
+  position: absolute;
+  color: #f57799;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(100vh);
+  }
+  to {
+    transform: translateY(-10vh);
+  }
+}
