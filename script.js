@@ -27,9 +27,19 @@ function render() {
 
     const footer = document.createElement("div");
     footer.className = "card-footer";
+
     footer.innerHTML = `
       <span>${item.date || ""}</span>
-      <span onclick="toggleFav(${item.id})">${item.fav ? "❤️" : "🤍"}</span>
+
+      <div style="display:flex; gap:8px;">
+        <span onclick="toggleFav(${item.id})">
+          ${item.fav ? "❤️" : "🤍"}
+        </span>
+
+        <span onclick="deleteItem(${item.id})" style="cursor:pointer;">
+          🗑️
+        </span>
+      </div>
     `;
 
     card.appendChild(footer);
@@ -183,6 +193,15 @@ function createHearts() {
     h.style.opacity = 0.3;
     container.appendChild(h);
   }
+}
+
+function deleteItem(id) {
+  if (!confirm("¿Eliminar este recuerdo? 😢")) return;
+
+  data = data.filter((item) => item.id !== id);
+
+  saveData();
+  render();
 }
 
 createHearts();
