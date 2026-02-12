@@ -1,156 +1,157 @@
-let data = {
-  startDate: "2024-02-14",
-  secretLetter: {
-    unlockDate: "2026-02-14",
-    content: "Mi amor, gracias por existir 💖",
-  },
-  memories: [],
-  pets: [],
-  hotPassword: "1234",
+const startDate = new Date("2022-12-25");
+let data = JSON.parse(localStorage.getItem("universeData")) || {
+    memories: [],
+    pets: [],
+    secret: ""
 };
 
-const timeline = document.getElementById("timeline");
-const petsSection = document.getElementById("petsSection");
-const letterContent = document.getElementById("letterContent");
-const importInput = document.getElementById("importInput");
-
-init();
-
-function init() {
-  updateCounter();
-  renderLetter();
-  renderMemories();
-  createHearts();
+function saveData() {
+    localStorage.setItem("universeData", JSON.stringify(data));
 }
 
-function updateCounter() {
-  const start = new Date(data.startDate);
-  const today = new Date();
-  const diff = Math.floor((today - start) / (1000 * 60 * 60 * 24));
-  document.getElementById("daysCounter").innerText = `${diff} días juntos 💕`;
+function updateDays() {
+    const today = new Date();
+    const diff = Math.floor((today - startDate) / (1000*60*60*24));
+    document.getElementById("daysCounter").innerText =
+        diff + " días juntos desde 25 de diciembre de 2022 ❤️";
 }
 
-function renderLetter() {
-  const today = new Date();
-  const unlock = new Date(data.secretLetter.unlockDate);
-  if (today >= unlock) {
-    letterContent.innerText = data.secretLetter.content;
-  } else {
-    const diff = Math.ceil((unlock - today) / (1000 * 60 * 60 * 24));
-    letterContent.innerText = `🔒 Se desbloquea en ${diff} días`;
-  }
+function openAddMemory() {
+    document.getElementById("addModal").style.display = "flex";
 }
 
-function openAddModal() {
-  document.getElementById("modal").style.display = "flex";
-}
-
-function closeModal() {
-  document.getElementById("modal").style.display = "none";
+function closeAdd() {
+    document.getElementById("addModal").style.display = "none";
 }
 
 function saveMemory() {
-  const type = document.getElementById("memoryType").value;
-  const file = document.getElementById("memoryFile").files[0];
-  const date = document.getElementById("memoryDate").value;
-  const desc = document.getElementById("memoryDesc").value;
+    const file = document.getElementById("memoryFile").files[0];
+    const date = document.getElementById("memoryDate").value;
+    const desc = document.getElementById("memoryDesc").value;
 
-  if (!file) return alert("Sube una imagen o video");
-
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const newMemory = {
-      id: Date.now(),
-      type: file.type.startsWith("video") ? "video" : "image",
-      date,
-      desc,
-      file: e.target.result,
-    };
-
-    if (type === "pet") {
-      data.pets.push(newMemory);
-    } else {
-      data.memories.push(newMemory);
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        data.memories.push({
+            id: Date.now(),
+            date,
+            desc,
+            file: e.target.result
+        });
+        saveData();
+        renderMemories();
+        closeAdd();
     }
-
-    renderMemories();
-    closeModal();
-  };
-  reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 }
 
 function renderMemories() {
-  timeline.innerHTML = "";
-  petsSection.innerHTML = "";
+    const container = document.getElementById("timeline");
+    container.innerHTML = "";
 
-  data.memories.forEach((m) => {
-    timeline.appendChild(createCard(m));
-  });
+    data.memories.sort((a,b)=> new Date(b.date)-new Date(a.date));
 
-  data.pets.forEach((m) => {
-    petsSection.appendChild(createCard(m));
-  });
+    data.memories.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "memory";
+        div.innerHTML = `
+            <p>${m.date}</p>
+            <img src="${m.file}" onclick="openModal('${m.file}')">
+            <p>${m.desc}</p>
+        `;
+        container.appendChild(div);
+    });
 }
 
-function createCard(m) {
-  const div = document.createElement("div");
-  div.className = "card";
-  div.innerHTML = `
-        ${
-          m.type === "image"
-            ? `<img src="${m.file}">`
-            : `<video src="${m.file}" controls></video>`
-        }
-        <p>${m.desc}</p>
-        <small>${m.date}</small>
-    `;
-  return div;
+function openModal(src) {
+    document.getElementById("modalImg").src = src;
+    document.getElementById("imageModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("imageModal").style.display = "none";
+}
+
+function saveSecret() {
+    data.secret = document.getElementById("secretLetter").value;
+    saveData();
+    renderSecret();
+}
+
+function renderSecret() {
+    document.getElementById("secretLetter").value = data.secret;
+}
+
+function addPet() {
+    const name = prompt("Nombre de la mascota:");
+    if(!name) return;
+    data.pets.push(name);
+    saveData();
+    renderPets();
+}
+
+function renderPets() {
+    const container = document.getElementById("pets");
+    container.innerHTML = "";
+    data.pets.forEach(p=>{
+        const div = document.createElement("div");
+        div.innerHTML = "🐾 " + p;
+        container.appendChild(div);
+    });
+}
+
+function toggleDark() {
+    document.body.classList.toggle("dark");
 }
 
 function exportData() {
-  const blob = new Blob([JSON.stringify(data)], { type: "application/json" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "nuestro_universo.json";
-  link.click();
+    const blob = new Blob([JSON.stringify(data)], {type:"application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "nuestro_universo.json";
+    a.click();
 }
 
-importInput.addEventListener("change", function (e) {
-  const file = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = function (ev) {
-    data = JSON.parse(ev.target.result);
-    init();
-  };
-  reader.readAsText(file);
+function importData() {
+    document.getElementById("importFile").click();
+}
+
+document.getElementById("importFile").addEventListener("change", function(e){
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function(ev){
+        data = JSON.parse(ev.target.result);
+        saveData();
+        renderMemories();
+        renderPets();
+        renderSecret();
+    }
+    reader.readAsText(file);
 });
 
-function toggleDarkMode() {
-  document.body.classList.toggle("dark");
-}
-
 function openHot() {
-  document.getElementById("hotSection").classList.remove("hidden");
-}
-
-function checkHot() {
-  const pass = document.getElementById("hotPassword").value;
-  if (pass === data.hotPassword) {
-    document.getElementById("hotContentArea").innerHTML =
-      "<p>Contenido privado 🔥</p>";
-  } else {
-    alert("Contraseña incorrecta");
-  }
+    const pass = prompt("Contraseña 🔥");
+    if(pass === "amor123") {
+        alert("Bienvenido al rincón secreto 😈");
+    } else {
+        alert("Incorrecto");
+    }
 }
 
 function createHearts() {
-  const container = document.getElementById("heartsContainer");
-  setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.style.left = Math.random() * 100 + "%";
-    heart.innerText = "💖";
-    container.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 500);
+    const container = document.getElementById("hearts-container");
+    for(let i=0;i<30;i++){
+        const heart = document.createElement("div");
+        heart.className="heart";
+        heart.innerText="❤";
+        heart.style.left = Math.random()*100+"vw";
+        heart.style.fontSize = (10+Math.random()*30)+"px";
+        heart.style.animationDuration = (5+Math.random()*10)+"s";
+        container.appendChild(heart);
+    }
 }
+
+updateDays();
+renderMemories();
+renderPets();
+renderSecret();
+createHearts();
