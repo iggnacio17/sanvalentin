@@ -1,72 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nuestro Universo 💖</title>
-<link rel="stylesheet" href="styles.css">
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuestro Universo 💖</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="hearts"></div>
 
-<div id="hearts-container"></div>
+    <header class="appHeader">💖 Nuestro Universo</header>
 
-<header>
-    <h1>💖 Nuestro Universo 💖</h1>
-    <p id="daysCounter"></p>
-
-    <div class="topbar">
-
-        <button class="addBtn" onclick="openAdd()">＋ Añadir</button>
-
-        <div class="filters">
-            <button onclick="setFilter('all')">Todo</button>
-            <button onclick="setFilter('photo')">Fotos</button>
-            <button onclick="setFilter('pet')">Mascotas</button>
-            <button onclick="setFilter('note')">Notas</button>
-            <button onclick="setFilter('fav')">❤️ Fav</button>
-        </div>
-
-        <div class="actions">
-            <button onclick="toggleDark()">🌙</button>
-            <button onclick="exportData()">💾</button>
-            <button onclick="importData()">📂</button>
-        </div>
-
+    <!-- 📱 BARRA SUPERIOR COMPACTA -->
+    <div class="topActions">
+      <button onclick="setFilter('all')">✨</button>
+      <button onclick="setFilter('photo')">📷</button>
+      <button onclick="setFilter('pet')">🐾</button>
+      <button onclick="setFilter('note')">📝</button>
+      <button onclick="setFilter('fav')">❤️</button>
+      <button onclick="toggleDark()">🌙</button>
+      <button onclick="exportData()">💾</button>
+      <button onclick="importData()">📂</button>
     </div>
-</header>
 
-<main>
-    <div id="gallery" class="masonry"></div>
-</main>
+    <main>
+      <div id="gallery" class="masonry"></div>
+    </main>
 
-<!-- Modal Imagen -->
-<div id="imageModal" class="modal">
-    <span onclick="closeModal()" class="close">&times;</span>
-    <img id="modalImg">
-</div>
+    <!-- ➕ BOTÓN FLOTANTE -->
+    <button class="fab" onclick="openAdd()">＋</button>
 
-<!-- Modal Añadir -->
-<div id="addModal" class="modal">
-    <div class="modal-content">
+    <!-- MODAL AÑADIR -->
+    <div id="addModal" class="modal">
+      <div class="modal-content">
         <h3>Nuevo Recuerdo</h3>
 
         <select id="typeSelect">
-            <option value="photo">Foto</option>
-            <option value="pet">Mascota</option>
-            <option value="note">Nota</option>
+          <option value="photo">Foto</option>
+          <option value="pet">Mascota</option>
+          <option value="note">Nota</option>
         </select>
 
-        <input type="file" id="memoryFile">
+        <input type="file" id="memoryFile" />
         <textarea id="memoryText" placeholder="Escribe tu nota..."></textarea>
-        <input type="date" id="memoryDate">
+        <input type="date" id="memoryDate" />
 
         <button onclick="saveItem()">Guardar</button>
         <button onclick="closeAdd()">Cancelar</button>
+      </div>
     </div>
-</div>
 
-<input type="file" id="importFile" style="display:none">
+    <!-- MODAL IMAGEN -->
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">×</span>
+      <img id="modalImg" />
+    </div>
 
-<script src="script.js"></script>
-</body>
+    <input type="file" id="importFile" style="display: none" />
+
+    <script src="script.js"></script>
+  </body>
 </html>
